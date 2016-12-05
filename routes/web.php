@@ -15,12 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', [
+    'as' => 'home',
+    'uses' => 'PagesController@home'
+]);
+
+Route::resource('tasks', 'TasksController');
+
+Route::get('sendemail','TasksController@sendMail');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-
-Route::get('/got', [
-  'middleware' => ['auth'],
-  'uses' => function () {
-   echo "You are allowed to view this page!";
-}]);
