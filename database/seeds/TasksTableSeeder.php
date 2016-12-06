@@ -16,7 +16,8 @@ class TasksTableSeeder extends Seeder
        'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
        'title' => 'My FIRST thing to remember',
        'description' => 'Its a test to remember the FIRST thing to remember',
-       'user_email' => 'f_email@gmail.com'
+       'user_email' => 'acar11@gmail.com',
+       'user_id' => 2, # <--- NEW LINE
      ]);
 
      DB::table('tasks')->insert([
@@ -24,7 +25,8 @@ class TasksTableSeeder extends Seeder
        'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
        'title' => 'My SECOND thing to remember',
        'description' => 'Its a test to remember the SECOND thing to remember',
-       'user_email' => 's_email@gmail.com'
+       'user_email' => 'jill@harvard.edu',
+       'user_id' => 3, # <--- NEW LINE
      ]);
 
      DB::table('tasks')->insert([
@@ -32,7 +34,8 @@ class TasksTableSeeder extends Seeder
        'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
        'title' => 'My THIRD thing to remember',
        'description' => 'Its a test to remember the THIRD thing to remember',
-       'user_email' => 't_email@gmail.com'
+       'user_email' => 'acar11@gmail.com',
+       'user_id' => 2, # <--- NEW LINE
      ]);
     }
 }

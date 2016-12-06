@@ -1,6 +1,10 @@
 <?php
 
+#use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
+#use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,10 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-        # Because `books` will be associated with `authors`,
-        # authors should be seeded first
-        $this->call(TasksTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(TasksTableSeeder::class);
+        #$this->call(UsersTableSeeder::class);
+
     }
 }
