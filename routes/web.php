@@ -27,3 +27,16 @@ Route::get('sendemail','TasksController@sendMail');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/show-login-status', function() {
+
+    # You may access the authenticated user via the Auth facade
+    $user = Auth::user();
+
+    if($user)
+        dump($user->toArray());
+    else
+        dump('You are not logged in.');
+
+    return;
+});

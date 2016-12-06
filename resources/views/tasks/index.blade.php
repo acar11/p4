@@ -6,9 +6,9 @@
 <h1>Task List</h1>
 @if(Auth::check())
 
-<p class="lead">ok Here's a list of all your tasks.
+<p class="lead">Hi {{ Auth::user()->name }}, here's a list of all your tasks.</p>
   <!--a href="/tasks/create">Add a new one?</a-->
-  <a href="{{ route('tasks.create') }}">Add a new one?OKOK</a>
+<p class="lead">  <a href="{{ route('tasks.create') }}" class="btn btn-info">Add a new one? P4</a>
 </p>
 <hr>
 
@@ -24,7 +24,7 @@
 @endif
 @if(Auth::guest())
  <a href="/login" class="btn btn-info">
-    You need to login to see this page! 😜😜 <br><br>
+    You need to login to see this page! index p4<br><br>
 </a>
 @endif
 @stop
