@@ -8,16 +8,48 @@ use Session;
 use App\Task;
 use Mail;
 use App\Mail\MyReminder;
+use Auth;
+use Carbon;
 
 class TasksController extends Controller
 {
-  public function index() {
 
-    $tasks = Task::all();
-    return view('tasks.index')->withTasks($tasks);
+  /**
+  * GET
+  */
+  public function index(Request $request)
+  {
+
+    $user = $request->user();
+    //dd($user->id);
+    # Note: We're getting the user from the request, but you can also get it like this:
+    $user = Auth::user();
+    //dd($user->id);
+    if($user) {
+        # Approach 1)
+        $tasks = Task::where('user_id', '=', $user->id)->orderBy('id','DESC')->get();
+        //$tasks = Task::where('user_id', '=', $user->id)->orderBy('user_id','DESC')->get();
+        //dd($tasks);
+        # Approach 2) Take advantage of Model relationships
+        //$tasks = $user->tasks()->get();
+        //dd($tasks);
+    }
+    else {
+      //dd($user->id);
+        $tasks = [];
+    }
+
+    return view('tasks.index')->with([
+        'tasks' => $tasks
+    ]);
+  }
+  //public function index() {
+
+  //  $tasks = Task::all();
+//    return view('tasks.index')->withTasks($tasks);
     //return view('tasks.index');
 
-  }
+//  }
 
   public function create() {
 
@@ -33,7 +65,15 @@ class TasksController extends Controller
       'description' => 'required'
     ]);
 
+    # get todays date for email reminder test
+    $mytime = Carbon\Carbon::now();
+    $the_date = $mytime->toDateString();
+    //dd($the_date);
+
     $input = $request->all();
+    //dd($input);
+
+    //$book->user_id = $request->user()->id; # <--- NEW LINE
     Task::create($input);
     Session::flash('flash_message', 'Task successfully added!');
     return redirect()->back();
@@ -42,6 +82,7 @@ class TasksController extends Controller
   public function show($id) {
 
     $task = Task::findOrFail($id);
+    //dd($task);
     //return view('tasks.show');
     return view('tasks.show')->withTask($task);
   }
@@ -64,7 +105,7 @@ class TasksController extends Controller
 
     $input = $request->all();
     $task->fill($input)->save();
-    Session::flash('flash_message', 'Task successfully added!');
+    Session::flash('flash_message', 'Task successfully updated!');
     return redirect()->back();
 
    }

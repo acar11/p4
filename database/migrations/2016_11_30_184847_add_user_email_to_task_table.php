@@ -13,9 +13,9 @@ class AddUserEmailToTaskTable extends Migration
      */
     public function up()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->integer('user_email');
-        });
+      //  Schema::table('tasks', function (Blueprint $table) {
+      //      $table->integer('user_email');
+      //  });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddUserEmailToTaskTable extends Migration
      */
     public function down()
     {
-      Schema::table('tasks', function (Blueprint $table) {
-      $table->dropColumn('user_email');
-  });
+      //Schema::table('tasks', function (Blueprint $table) {
+      //$table->dropColumn('user_email');
+      //});
     }
 }
