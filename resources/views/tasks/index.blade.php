@@ -54,35 +54,35 @@ if($task->date_me){
 
       <div class="five_tasks">
         <span class="tasks_title"> {{ $task->title }} </span>
-        <span class='tasks_due_date_five'> 5 Due on {{ $task->date_me }} </span>
+        <span class='tasks_due_date_five'> Due on {{ $task->date_me }} </span>
       </div>
 
     @elseif($day_two  == $my_due_date )
 
       <div class="two_tasks">
         <span class="tasks_title"> {{ $task->title }} </span>
-        <span class='tasks_due_date_two'> 2 Due on {{ $task->date_me }} </span>
+        <span class='tasks_due_date_two'> Due on {{ $task->date_me }} </span>
       </div>
 
     @elseif($day_due  == $my_due_date)
 
       <div class="due_tasks">
         <span class="tasks_title"> {{ $task->title }} </span>
-        <span class='tasks_due_date_due'>65 Due today! {{ $task->date_me }} </span>
+        <span class='tasks_due_date_due'> Due today! {{ $task->date_me }} </span>
       </div>
 
     @elseif( $my_due_date && $today > $my_due_date )
 
       <div class="dummed_tasks">
         <span class="tasks_title"> {{ $task->title }} </span>
-        <span class='tasks_due_date_dummed'>79 It was due on {{ $task->date_me }} </span>
+        <span class='tasks_due_date_dummed'> It was due on {{ $task->date_me }} </span>
       </div>
 
     @elseif($day_five < $my_due_date)
 
       <div class="green_tasks">
         <span class="tasks_title"> {{ $task->title }} </span>
-        <span class='tasks_due_date_green'>86 Due on {{ $task->date_me }} </span>
+        <span class='tasks_due_date_green'> Due on {{ $task->date_me }} </span>
       </div>
 
      @else
@@ -90,12 +90,12 @@ if($task->date_me){
        @if($my_due_date)
          <div class="no_date_range">
            <span class="tasks_title">{{ $task->title }} </span>
-           <span class='tasks_no_date_no_range'>Date out of range for now, due on {{ $task->date_me }}</span>
+           <span class='tasks_no_date_no_range'> Date out of range for now, due on {{ $task->date_me }}</span>
          </div>
        @else
          <div class="no_date_range">
         <span class="tasks_title">{{ $task->title }} </span>
-        <span class='tasks_no_date_no_range'>93 No set Due date</span>
+        <span class='tasks_no_date_no_range'> No set due date</span>
       </div>
        @endif
 
