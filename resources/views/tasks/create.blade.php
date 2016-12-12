@@ -15,7 +15,7 @@
 
 @if(Auth::guest())
  <a href="/login" class="btn btn-info">
-    You need to login to see this page! 😜😜 <br><br>
+    You need to login to see this page!<br><br>
 </a>
 @endif
 @if($errors->any())
@@ -45,19 +45,23 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('reminder', 'Set Date Reminder:', ['class' => 'control-label']) !!}
+    {!! Form::label('reminder', 'Set Task Due Date:', ['class' => 'control-label']) !!}
     <!--input class="date form-control" style="width: 300px;" type="text"-->
-    {!! Form::text('date_me', null, ['class' => 'date form-control']) !!}
+    {!! Form::text('date_me', null, ['class' => 'date form-control_picker']) !!}
 </div>
 
 {!! Form::submit('Create New Task', ['class' => 'btn btn-primary']) !!}
 <br><br><br>
 {!! Form::close() !!}
+
 <script type="text/javascript">
+  //$(document).ready(function() {
         $('.date').datepicker({
            format: 'mm-dd-yyyy'
+           //format: 'yyyy-mm-dd'
          });
-    </script>
+  //});
+</script>
 @endif
 
 @stop

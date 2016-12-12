@@ -29,8 +29,17 @@
     {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
 </div>
 
+<div class="form-group">
+    {!! Form::label('reminder', 'Set Date Reminder:', ['class' => 'control-label']) !!}
+    {!! Form::text('date_me', null, ['class' => 'date form-control_picker']) !!}
+</div>
+
 {!! Form::submit('Update Task', ['class' => 'btn btn-primary']) !!}
 
 {!! Form::close() !!}
-
+<script type="text/javascript">
+  $('.date').datepicker({
+    format: 'mm-dd-yyyy'
+  });
+</script>
 @stop
