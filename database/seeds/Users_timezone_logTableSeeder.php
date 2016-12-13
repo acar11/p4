@@ -20,5 +20,3 @@ class Users_timezone_logTableSeeder extends Seeder
       ]);
     }
 }
-# to run as  an individual seeeder:
-# php artisan db:seed --class=Users_timezone_logTableSeeder

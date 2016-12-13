@@ -49,7 +49,7 @@ class TasksController extends Controller
 
         //if(!array_key_exists(intval($all_ips[0]),$existingIps)) {
         if(!array_key_exists($all_ips[0],$existingIps)) {
-           dd($existingIps);
+           //dd($existingIps);
           DB::table('users_timezone_log')->insert([
             'created_at' => Carbon\Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
@@ -145,7 +145,7 @@ class TasksController extends Controller
     //$test_date = '12-09-2016';
 
     if($request->date_me) {
-    var_dump($request->date_me);
+    //var_dump($request->date_me);
     //list($month, $day, $year) = explode('-', $request->date_me);
     //$format_date = $year.'-'.$month.'-'.$day;
     //var_dump('Line 101 '.$format_date);
