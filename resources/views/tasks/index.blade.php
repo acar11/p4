@@ -3,7 +3,10 @@
 
 @section('content')
 
+@if(Auth::check())
+
 @php
+
 $today = Carbon\Carbon::today()->setTimezone('America/New_York');
 
 $day_five   = Carbon\Carbon::today()->addDays(5)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
@@ -15,21 +18,7 @@ $day_due    = Carbon\Carbon::today()->addDays(0)->setTimezone('America/New_York'
 
 $todays_date = Carbon\Carbon::now()->setTimezone('America/New_York');
 
-//var_dump('line 16 - '.$todays_date.' '); // 2016-12-13 02:34:13
-// use this code to set time zone
-//$carbon_date = new Carbon\Carbon($todays_date);
-//$carbon_date->timezone = 'America/New_York';
-// old $new_timezoned_date = $carbon_date->toDayDateTimeString();
-//$new_timezoned_date = $carbon_date->toDateTimeString();
-//$new_timezoned_date = $carbon_date->today();
-//var_dump('line 22 '.$new_timezoned_date.' ');
-
 $todays = $todays_date->toFormattedDateString();
-//dd($todays);
-
-//$date = new DateTime($todays_date);
-//$new_zoned_date = $date->setTimezone(new DateTimeZone('America/New_York'));
-//var_dump($new_zoned_date);
 
 if( $tasks[0]->user_id ) {
 
@@ -43,8 +32,8 @@ if( $tasks[0]->user_id ) {
 @endphp
 
 <h1>Tasks'n things to remember.</h1>
-@if(Auth::check())
-<p class="lead">Hi {{ Auth::user()->name }}, here's a list of all your tasks as today, 
+
+<p class="lead">Hi {{ Auth::user()->name }}, here's a list of all your tasks as today,
   <span class="todays_date"> {{ $todays }}</span>
   <span class="timezone"> - Timezone is {{ $get_zone[0] }} </span>
 </p>
@@ -67,7 +56,7 @@ if( $tasks[0]->user_id ) {
 
 if($task->date_me){
 
-  // make sure date has the right delimeter
+  // making sure date has the right delimeter
   $check_date = str_replace('/','-',$task->date_me);
   list($month, $day, $year) = explode('-', $check_date);
   $format_date = $year.'-'.$month.'-'.$day;
@@ -122,7 +111,7 @@ if($task->date_me){
        @if($my_due_date)
          <div class="no_date_range">
            <span class="tasks_title">{{ $task->title }} </span>
-           <span class='tasks_no_date_no_range'> Date out of range for now, due on {{ $task->date_me }}</span>
+           <span class='tasks_no_date_no_range'> Due on {{ $task->date_me }}</span>
          </div>
        @else
          <div class="no_date_range">
@@ -133,7 +122,6 @@ if($task->date_me){
 
     @endif
 
-
     <p class="space">&nbsp;</p>
     <p class="desc">{{ $task->description}}</p>
     <p class="btn_down">
@@ -141,11 +129,17 @@ if($task->date_me){
         <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary">Edit Task</a>
     </p>
     <hr>
+
 @endforeach
+
 @endif
+
 @if(Auth::guest())
+
  <a href="/login" class="btn btn-info">
-    You need to login to see this page! index p4<br><br>
+    You need to login to see this page!<br><br>
 </a>
+
 @endif
+
 @stop

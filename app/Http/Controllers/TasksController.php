@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Task;
+use App\Users_timezone_log;
 use Mail;
 use App\Mail\MyReminder;
 use Auth;
 use Carbon;
-use App\Users_timezone_log;
+
+
+#use App\Http\Controllers\Users_timezone_log;
 
 class TasksController extends Controller
 {
@@ -33,12 +36,6 @@ class TasksController extends Controller
         $all_ips = DB::table('users_timezone_log')->select('users_timezone_log.user_ip')
                   ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
                   ->where('users_timezone_log.user_id', $user->id)->pluck('user_ip');
-        //$just_ips = array('data' => $all_ips);
-        //dd($just_ips);
-        //dd($all_ips[0]);
-        //foreach($all_ips as $ip) {
-          //dd($ip);
-        // }
 
         # Get existing entered IPs to prevent duplicates
         # If the IP for the user isnt in the DB log it.
@@ -63,40 +60,14 @@ class TasksController extends Controller
       //dd($user->id);
         $tasks = [];
     }
-   //dd($all_ips[0]);
-  //  $day_five = Carbon\Carbon::today()->addDays(5);
-  //  $day_two  = Carbon\Carbon::today()->addDays(2);
-  //  $day_due  = Carbon\Carbon::today()->addDays(0);
-/*
-   $my_dates = array();
-   foreach ($tasks as $task){
 
-     if($task->date_me){
-     list($month, $day, $year) = explode('-', $task->date_me);
-     $format_date = $year.'-'.$month.'-'.$day;
-     //var_dump('Line 52 '.$format_date);
-     $my_date = Carbon\Carbon::parse($format_date);
-     var_dump('Line 54A '.$format_date.' - '.$my_date);
-
-     array_push($my_dates, $my_date);
-     }
-   }
-*/
-//var_dump($my_dates);
-// assuming I alredy have all the logic for the days due here:
+    // assuming I alredy have all the logic for the days due here:
     return view('tasks.index')->with([
         'tasks' => $tasks,
         //'my_dates' => $my_dates,
         //'day_f' => 0
     ]);
   }
-  //public function index() {
-
-  //  $tasks = Task::all();
-//    return view('tasks.index')->withTasks($tasks);
-    //return view('tasks.index');
-
-//  }
 
   public function create() {
 
@@ -113,87 +84,17 @@ class TasksController extends Controller
     ]);
 
     # get todays date for email reminder test
-//    $mytime = Carbon\Carbon::now();
-    //$mytime = new Carbon\Carbon();
-//    $today = Carbon\Carbon::today();
-    //$today->subDays(5);
-    //dd($today);
-    #$the_date = $mytime->toDateString();
-//    $the_date = $mytime->toDateTimeString();
-
-    //$test_date = '12-31-2016'; //"12-31-2016"
-
-    //dd($test_date);
-    //$new_date = Carbon\Carbon::createFromFormat('d/m/Y',$test_date);
-    //if($model->edited_at->gt($model->created_at)){
-    // edited at is newer than created at
-    //}
-    //dd('line 84 - '.Carbon\Carbon::today()->subDays(30)->toDateTimeString(). ' - '.Carbon\Carbon::parse($request->date_me)->toDateTimeString());
-    //$test_date = '12-06-2016';
-
-//    $test_today = Carbon\Carbon::today()->addDays(0);
-//    $day_five = Carbon\Carbon::today()->addDays(5);
-//    $day_two  = Carbon\Carbon::today()->addDays(2);
-//    $day_due  = Carbon\Carbon::today()->addDays(0);
-
-    //dd($days_to); // 12-02-2016
-    //var_dump('Line 93 '.$request->date_me);
-    //$mydate = date('Y-m-d',$request->date_me);
-    //$mydate = strptime($request->date_me, '%Y-%m-%d');
-    //var_dump('Line 96 '.$mydate);
-    //$mydate->getTimestamp();
-    //$test_date = '12-09-2016';
+    // ...
 
     if($request->date_me) {
-    //var_dump($request->date_me);
-    //list($month, $day, $year) = explode('-', $request->date_me);
-    //$format_date = $year.'-'.$month.'-'.$day;
-    //var_dump('Line 101 '.$format_date);
-    //$my_date = Carbon\Carbon::parse($format_date);
-    $my_date = Carbon\Carbon::parse($request->date_me);
 
-    //$my_date = Carbon\Carbon::parse($request->date_me);
-    //$my_date = Carbon\Carbon::createFromFormat('m-d-Y',$request->date_me);
-
-    //$my_date = $request->date_me->format('M d Y');
-    //$my_date = Carbon\Carbon::createFromFormat('F d, Y',$request->date_me);
-    //$my_date = Carbon\Carbon::($request->date_me);
-    //dd('line 97 '. $my_date);
-    //"Dates to: 12-09-2016 to 2016-12-09 00:00:00" with $request->date_me
-    //"Dates to: 2016-09-12 00:00:00 to 2016-12-09 00:00:00" with $my_date
-    //dd('my_date: '.$my_date.' day_to '.$day_two);
-    //if ( Carbon\Carbon::today()->subDays(30) <= Carbon\Carbon::parse($request->date_me)  )
-    //if ( $its_now->gt( $my_date) )
-/*
-    if( $day_five  == $my_date) {
-      dd('Day 5 '.$day_five.' == '.$my_date.'  - '.$request->date_me );
-    }elseif ($day_two  == $my_date) {
-      dd('Day 2 '.$day_two.' == '.$my_date.'  - '.$request->date_me );
-    }elseif ($day_due  == $my_date) {
-      dd('Day Due '.$day_due.' == '.$my_date.'  - '.$request->date_me );
-    }else{ dd('no match dates to: '.$day_two.' '.$my_date); }
-*/
+      $my_date = Carbon\Carbon::parse($request->date_me);
 
     }
 
-    //dd($test_date. 'out');
-    //$d = new DateTime($test_date);
-    //$timestamp = $d->getTimestamp(); // Unix timestamp
-    //$formatted_date = $d->format('Y-m-d'); // 2003-10-16
-    //$formatted_date = Carbon\Carbon::parse($test_date);
-    //dd($formatted_date);
-    //if ($today->lt($formatted_date)) { dd($the_date);}
-    //dd($request->date_me);
-    //if($today->gt($test_date)){
-      //dd($today);
-      //dd($request->date_me);
-    //}
-    //dd($the_date);
-    // dd($request->date_me);
     $input = $request->all();
     //dd($input);
 
-    //$book->user_id = $request->user()->id; # <--- NEW LINE
     Task::create($input);
     Session::flash('flash_message', 'Task successfully added!');
     return redirect()->back();
@@ -245,15 +146,15 @@ class TasksController extends Controller
 
        Mail::to($to_email)->send(new MyReminder);
        return "E-mail has been sent Successfully to you!";
-       //Mail::to('batman@batcave.io')->send(new KryptoniteFound);
+       //Mail::to('acar11@gmail.com')->send(new ReminderEmailFound);
    }
 
    public function sendEmailReminder(Request $request, $id) {
         //$user = User::findOrFail($id);
         $user = "Andrey Test";
 
-        $user->email = "a_car11@yahoo.com";
-        $user->name = "ACAR11";
+        $user->email = "acar11@gmail.com";
+        $user->name = "Andrey";
 
         Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
             $m->from('hello@app.com', 'My Application Email Reminder');

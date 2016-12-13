@@ -56,7 +56,7 @@
 
 .tasks_due_date_green {
  border-radius: 9px;
- font-size: 150%;
+ font-size: 120%;
  width: auto;
  margin: 50px;
  padding: 5px;
@@ -92,7 +92,7 @@
 
 .tasks_due_date_five {
  border-radius: 9px;
- font-size: 150%;
+ font-size: 120%;
  width: auto;
  margin: 50px;
  padding: 5px;
@@ -129,7 +129,7 @@
 
 .tasks_due_date_two {
  border-radius: 9px;
- font-size: 150%;
+ font-size: 120%;
  width: auto;
  margin: 50px;
  padding: 5px;
@@ -165,7 +165,7 @@
 
 .tasks_due_date_due {
  border-radius: 9px;
- font-size: 150%;
+ font-size: 120%;
  width: auto;
  margin: 50px;
  padding: 5px;
@@ -201,7 +201,7 @@
 
 .tasks_due_date_dummed {
  border-radius: 9px;
- font-size: 150%;
+ font-size: 120%;
  width: auto;
  margin: 50px;
  padding: 5px;
@@ -224,7 +224,7 @@
 }
 .tasks_no_date_no_range {
  border-radius: 9px;
- font-size: 150%;
+ font-size: 120%;
  width: auto;
  margin: 50px;
  padding: 5px;
