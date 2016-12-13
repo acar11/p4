@@ -10,6 +10,7 @@ use Mail;
 use App\Mail\MyReminder;
 use Auth;
 use Carbon;
+use App\Users_timezone_log;
 
 class TasksController extends Controller
 {
@@ -22,24 +23,47 @@ class TasksController extends Controller
 
     $user = $request->user();
     //dd($user->id);
-    # Note: We're getting the user from the request, but you can also get it like this:
     $user = Auth::user();
     //dd($user->id);
     if($user) {
-        # Approach 1)
+
         $tasks = Task::where('user_id', '=', $user->id)->orderBy('id','DESC')->get();
 
-        //$tasks = Task::where('user_id', '=', $user->id)->orderBy('user_id','DESC')->get();
-        //dd($tasks);
-        # Approach 2) Take advantage of Model relationships
-        //$tasks = $user->tasks()->get();
-        //dd($tasks);
+        # Get the IP for the user.
+        $all_ips = DB::table('users_timezone_log')->select('users_timezone_log.user_ip')
+                  ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
+                  ->where('users_timezone_log.user_id', $user->id)->pluck('user_ip');
+        //$just_ips = array('data' => $all_ips);
+        //dd($just_ips);
+        //dd($all_ips[0]);
+        //foreach($all_ips as $ip) {
+          //dd($ip);
+        // }
+
+        # Get existing entered IPs to prevent duplicates
+        # If the IP for the user isnt in the DB log it.
+        # For now I am setting all the user to have America/New_York timezone.
+        $existingIps = Users_timezone_log::all()->keyBy('user_ip')->toArray();
+        //var_dump($existingIps);
+        //dd($existingIps);
+
+        //if(!array_key_exists(intval($all_ips[0]),$existingIps)) {
+        if(!array_key_exists($all_ips[0],$existingIps)) {
+           dd($existingIps);
+          DB::table('users_timezone_log')->insert([
+            'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+            'user_id'    => $user->id,
+            'zone'       => 'America/New_York',
+            'user_ip'    => \Request::ip(),
+          ]);
+        }
     }
     else {
       //dd($user->id);
         $tasks = [];
     }
-
+   //dd($all_ips[0]);
   //  $day_five = Carbon\Carbon::today()->addDays(5);
   //  $day_two  = Carbon\Carbon::today()->addDays(2);
   //  $day_due  = Carbon\Carbon::today()->addDays(0);
@@ -89,13 +113,13 @@ class TasksController extends Controller
     ]);
 
     # get todays date for email reminder test
-    $mytime = Carbon\Carbon::now();
+//    $mytime = Carbon\Carbon::now();
     //$mytime = new Carbon\Carbon();
-    $today = Carbon\Carbon::today();
+//    $today = Carbon\Carbon::today();
     //$today->subDays(5);
     //dd($today);
     #$the_date = $mytime->toDateString();
-    $the_date = $mytime->toDateTimeString();
+//    $the_date = $mytime->toDateTimeString();
 
     //$test_date = '12-31-2016'; //"12-31-2016"
 
@@ -107,10 +131,10 @@ class TasksController extends Controller
     //dd('line 84 - '.Carbon\Carbon::today()->subDays(30)->toDateTimeString(). ' - '.Carbon\Carbon::parse($request->date_me)->toDateTimeString());
     //$test_date = '12-06-2016';
 
-    $test_today = Carbon\Carbon::today()->addDays(0);
-    $day_five = Carbon\Carbon::today()->addDays(5);
-    $day_two  = Carbon\Carbon::today()->addDays(2);
-    $day_due  = Carbon\Carbon::today()->addDays(0);
+//    $test_today = Carbon\Carbon::today()->addDays(0);
+//    $day_five = Carbon\Carbon::today()->addDays(5);
+//    $day_two  = Carbon\Carbon::today()->addDays(2);
+//    $day_due  = Carbon\Carbon::today()->addDays(0);
 
     //dd($days_to); // 12-02-2016
     //var_dump('Line 93 '.$request->date_me);

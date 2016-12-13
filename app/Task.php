@@ -24,4 +24,8 @@ class Task extends Model
     return $this->belongsTo('App\User');
   }
 
+  public function users_timezone_log() {
+      return $this->belongsTo('App\Users_timezone_log');
+   }
+
 }

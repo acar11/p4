@@ -4,21 +4,50 @@
 @section('content')
 
 @php
-$today      = Carbon\Carbon::today();
-$day_five   = Carbon\Carbon::today()->addDays(5);
-$day_four   = Carbon\Carbon::today()->addDays(4);
-$day_three  = Carbon\Carbon::today()->addDays(3);
-$day_two    = Carbon\Carbon::today()->addDays(2);
-$day_one    = Carbon\Carbon::today()->addDays(1);
-$day_due    = Carbon\Carbon::today()->addDays(0);
+$today = Carbon\Carbon::today()->setTimezone('America/New_York');
 
-$todays_date = Carbon\Carbon::now();
+$day_five   = Carbon\Carbon::today()->addDays(5)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
+$day_four   = Carbon\Carbon::today()->addDays(4)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
+$day_three  = Carbon\Carbon::today()->addDays(3)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
+$day_two    = Carbon\Carbon::today()->addDays(2)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
+$day_one    = Carbon\Carbon::today()->addDays(1)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
+$day_due    = Carbon\Carbon::today()->addDays(0)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
+
+$todays_date = Carbon\Carbon::now()->setTimezone('America/New_York');
+
+//var_dump('line 16 - '.$todays_date.' '); // 2016-12-13 02:34:13
+// use this code to set time zone
+//$carbon_date = new Carbon\Carbon($todays_date);
+//$carbon_date->timezone = 'America/New_York';
+// old $new_timezoned_date = $carbon_date->toDayDateTimeString();
+//$new_timezoned_date = $carbon_date->toDateTimeString();
+//$new_timezoned_date = $carbon_date->today();
+//var_dump('line 22 '.$new_timezoned_date.' ');
+
 $todays = $todays_date->toFormattedDateString();
+//dd($todays);
+
+//$date = new DateTime($todays_date);
+//$new_zoned_date = $date->setTimezone(new DateTimeZone('America/New_York'));
+//var_dump($new_zoned_date);
+
+if( $tasks[0]->user_id ) {
+
+  # Get the timezone for the user.
+  $get_zone = DB::table('users_timezone_log')->select('users_timezone_log.zone')
+            ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
+            ->where('users_timezone_log.user_id', $tasks[0]->user_id)->pluck('zone');
+  //var_dump($get_zone[0]);
+
+}
 @endphp
 
 <h1>Tasks'n things to remember.</h1>
 @if(Auth::check())
-<p class="lead">Hi {{ Auth::user()->name }}, here's a list of all your tasks, today is: <span class="todays_date"> {{ $todays }}</span> </p>
+<p class="lead">Hi {{ Auth::user()->name }}, here's a list of all your tasks as today, 
+  <span class="todays_date"> {{ $todays }}</span>
+  <span class="timezone"> - Timezone is {{ $get_zone[0] }} </span>
+</p>
 <p class="tasks_header">
   <span class="green_tasks_sign"> It's new, no worries! </span>
   <span class="five_tasks_sign"> Due in 5 days! </span>
@@ -30,11 +59,12 @@ $todays = $todays_date->toFormattedDateString();
   <!--a href="/tasks/create">Add a new one?</a-->
 <p class="lead">  <a href="{{ route('tasks.create') }}" class="btn_x btn-info">Add New Task</a>
 </p>
-<hr>
 
+<hr>
 @foreach($tasks as $task)
 
 @php
+
 if($task->date_me){
 
   // make sure date has the right delimeter
@@ -42,6 +72,8 @@ if($task->date_me){
   list($month, $day, $year) = explode('-', $check_date);
   $format_date = $year.'-'.$month.'-'.$day;
   $my_due_date = Carbon\Carbon::parse($format_date);
+
+  //var_dump($day_due.' = '. $my_due_date);
 
 }else{
 

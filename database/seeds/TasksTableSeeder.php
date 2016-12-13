@@ -17,7 +17,7 @@ class TasksTableSeeder extends Seeder
        'title' => 'My FIRST thing to remember',
        'description' => 'Its a test to remember the FIRST thing to remember',
        'user_email' => 'acar11@gmail.com',
-       'user_id' => 2, # <--- NEW LINE
+       'user_id' => 3, # <--- NEW LINE
      ]);
 
      DB::table('tasks')->insert([
@@ -26,7 +26,7 @@ class TasksTableSeeder extends Seeder
        'title' => 'My SECOND thing to remember',
        'description' => 'Its a test to remember the SECOND thing to remember',
        'user_email' => 'jill@harvard.edu',
-       'user_id' => 3, # <--- NEW LINE
+       'user_id' => 1, # <--- NEW LINE
      ]);
 
      DB::table('tasks')->insert([
@@ -35,7 +35,7 @@ class TasksTableSeeder extends Seeder
        'title' => 'My THIRD thing to remember',
        'description' => 'Its a test to remember the THIRD thing to remember',
        'user_email' => 'acar11@gmail.com',
-       'user_id' => 2, # <--- NEW LINE
+       'user_id' => 3, # <--- NEW LINE
      ]);
     }
 }

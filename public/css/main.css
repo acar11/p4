@@ -17,6 +17,9 @@
   color: #000000;
 	font-weight: bold;
 }
+.timezone {
+  font-size: 15px;
+}
 .space {
  line-height: 1em;
 }
