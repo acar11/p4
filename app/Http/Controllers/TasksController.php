@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use DB;
 use Session;
 use App\Task;
 use App\Users_timezone_log;
+use App\Tag;
 use Mail;
 use App\Mail\MyReminder;
 use Auth;
@@ -33,18 +35,19 @@ class TasksController extends Controller
         $tasks = Task::where('user_id', '=', $user->id)->orderBy('id','DESC')->get();
 
         # Get the IP for the user.
-        $all_ips = DB::table('users_timezone_log')->select('users_timezone_log.user_ip')
-                  ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
-                  ->where('users_timezone_log.user_id', $user->id)->pluck('user_ip');
-
+      //  $all_ips = DB::table('users_timezone_log')->select('users_timezone_log.user_ip')
+      //            ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
+      //            ->where('users_timezone_log.user_id', $user->id)->pluck('user_ip');
+      //  dd($all_ips);
         # Get existing entered IPs to prevent duplicates
         # If the IP for the user isnt in the DB log it.
         # For now I am setting all the user to have America/New_York timezone.
-        $existingIps = Users_timezone_log::all()->keyBy('user_ip')->toArray();
+    //    $existingIps = Users_timezone_log::all()->keyBy('user_ip')->toArray();
         //var_dump($existingIps);
         //dd($existingIps);
 
         //if(!array_key_exists(intval($all_ips[0]),$existingIps)) {
+/*
         if(!array_key_exists($all_ips[0],$existingIps)) {
            //dd($existingIps);
           DB::table('users_timezone_log')->insert([
@@ -55,6 +58,7 @@ class TasksController extends Controller
             'user_ip'    => \Request::ip(),
           ]);
         }
+  */
     }
     else {
       //dd($user->id);
@@ -133,8 +137,32 @@ class TasksController extends Controller
 
    public function destroy($id){
 
+    # Get the task to be deleted
     $task = Task::findOrFail($id);
+    #$task = Task::find($id);
+    /*
+    public function tasks()
+    {
+      return $this->belongsToMany('App\Task')->withTimestamps();
+    }
+    */
+  //  dd($task->users_timezone_log());
+    # First remove any tags associated with this task
+  //  dd($task->tags());
+
+//    if($task->tags()) {
+//      $task->tags()->detach();
+//    }
+  //  if($task->users_timezone_log()) {
+    //  $task->users_timezone_log()->detach();
+  //    $task->tags()->detach();
+  //  }
+
+    // Delete all of the data that have the same ids...
+    //Users_timezone_log::where("user_id", $id)->delete();
+    //DB::table('users_timezone_log')->where('user_id', '=', $id)->delete();
     $task->delete();
+
     Session::flash('flash_message', 'Task successfully deleted!');
     return redirect()->route('tasks.index');
 
