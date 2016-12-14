@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Task;
-use App\Users_timezone_log;
-use App\Tag;
+use App\User;
+#use App\Users_timezone_log;
+#use App\Tag;
 use Mail;
 use App\Mail\MyReminder;
 use Auth;
@@ -39,26 +40,30 @@ class TasksController extends Controller
       //            ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
       //            ->where('users_timezone_log.user_id', $user->id)->pluck('user_ip');
       //  dd($all_ips);
-        # Get existing entered IPs to prevent duplicates
-        # If the IP for the user isnt in the DB log it.
-        # For now I am setting all the user to have America/New_York timezone.
-    //    $existingIps = Users_timezone_log::all()->keyBy('user_ip')->toArray();
-        //var_dump($existingIps);
-        //dd($existingIps);
+        # Get the timezone for the user.
+        $get_timezone = DB::table('users')->select('timezone')
+                  ->where('id', $user->id)->pluck('timezone');
+        //dd($all_ips);
+        //var_dump($get_timezone);
 
-        //if(!array_key_exists(intval($all_ips[0]),$existingIps)) {
-/*
-        if(!array_key_exists($all_ips[0],$existingIps)) {
-           //dd($existingIps);
-          DB::table('users_timezone_log')->insert([
-            'created_at' => Carbon\Carbon::now()->toDateTimeString(),
-            'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-            'user_id'    => $user->id,
-            'zone'       => 'America/New_York',
-            'user_ip'    => \Request::ip(),
-          ]);
+        # Get existing entered IPs to prevent duplicates
+        # For now I am setting all the user to have America/New_York timezone.
+        #$existingIps = Users_timezone_log::all()->keyBy('user_ip')->toArray();
+        #$existingIps = User::all()->keyBy('user_ip')->toArray();
+        $existing_timezone = User::all()->keyBy('timezone')->toArray();
+        //dd($existing_timezone);
+
+        # If the timezone for the user isnt in the DB set it.
+        # Setting to int justin case the we have null
+        if(!array_key_exists(intval($get_timezone[0]),$existing_timezone)) {
+          // dd($existingIps);
+          DB::table('users')
+                ->where('id', $user->id)  // find  user by their id
+                ->update(array('timezone' => 'America/New_York',
+                                'user_ip' => \Request::ip(),
+                          ));  // update the record in the DB.
         }
-  */
+
     }
     else {
       //dd($user->id);
