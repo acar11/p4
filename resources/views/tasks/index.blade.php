@@ -8,27 +8,33 @@
 @php
 
 $today = Carbon\Carbon::today()->setTimezone('America/New_York');
-
+//var_dump($today);
 $day_five   = Carbon\Carbon::today()->addDays(5)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
 $day_four   = Carbon\Carbon::today()->addDays(4)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
 $day_three  = Carbon\Carbon::today()->addDays(3)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
 $day_two    = Carbon\Carbon::today()->addDays(2)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
 $day_one    = Carbon\Carbon::today()->addDays(1)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
 $day_due    = Carbon\Carbon::today()->addDays(0)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
-
+//var_dump($day_due);
 $todays_date = Carbon\Carbon::now()->setTimezone('America/New_York');
 
 $todays = $todays_date->toFormattedDateString();
 //dd($todays);
 
 //if( $tasks[0]->user_id ) {
-if( isset($task) && isset($tasks) ) {
+//if( isset($task) && isset($tasks) ) {
+
+# Using user_id sent by TasksController
+if( isset($send_user_id) ) {
 
   # Get the timezone for the user.
   //$get_zone = DB::table('users_timezone_log')->select('users_timezone_log.zone')
   //          ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
   //          ->where('users_timezone_log.user_id', $tasks[0]->user_id)->pluck('zone');
-  //var_dump($get_zone[0]);
+
+  # Get the timezone for the user.
+  $get_zone = DB::table('users')->select('timezone')
+            ->where('id', $send_user_id)->pluck('timezone');
 
 }
 

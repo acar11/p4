@@ -70,9 +70,10 @@ class TasksController extends Controller
         $tasks = [];
     }
 
-    // assuming I alredy have all the logic for the days due here:
+    // Assuming I alredy have all the logic for the tasks here:
     return view('tasks.index')->with([
         'tasks' => $tasks,
+        'send_user_id' => $user->id,
         //'my_dates' => $my_dates,
         //'day_f' => 0
     ]);
@@ -144,28 +145,9 @@ class TasksController extends Controller
 
     # Get the task to be deleted
     $task = Task::findOrFail($id);
-    #$task = Task::find($id);
-    /*
-    public function tasks()
-    {
-      return $this->belongsToMany('App\Task')->withTimestamps();
-    }
-    */
-  //  dd($task->users_timezone_log());
-    # First remove any tags associated with this task
-  //  dd($task->tags());
-
-//    if($task->tags()) {
-//      $task->tags()->detach();
-//    }
-  //  if($task->users_timezone_log()) {
-    //  $task->users_timezone_log()->detach();
-  //    $task->tags()->detach();
-  //  }
 
     // Delete all of the data that have the same ids...
-    //Users_timezone_log::where("user_id", $id)->delete();
-    //DB::table('users_timezone_log')->where('user_id', '=', $id)->delete();
+    //DB::table('tasks')->where('user_id', '=', $id)->delete();
     $task->delete();
 
     Session::flash('flash_message', 'Task successfully deleted!');
