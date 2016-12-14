@@ -18,7 +18,7 @@
 
  In the next version of the "Tasks'n Things to Remember Management", a reminder choice of text message, email will be included.
 
- Your timezone will automatically set, location reminder will be also included on the net  version.
+ Your timezone will automatically be set, location reminder will be also included on the next  version.
 
 ## Screencast Demo
 <http://www.screencast.com/t/NdNZVm7Tll>
