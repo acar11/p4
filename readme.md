@@ -1,27 +1,53 @@
-# Laravel PHP Framework
+# Tasks'n Things to Remember Management
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## Github URL
+<https://github.com/acar11/p4>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Live URL
+<http://p4.harvarddynamicwebapps.xyz>
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Description
+ This is a list of things we must do and we just forget because of our busy
+ schedule or lifestyle.
 
-## Official Documentation
+ Our brain is full to its capacity most of the time and to remember
+ all these little things, its just tough, right?
+ In this version of the "Tasks'n Things to Remember Management", our list can help, it will be color coded to show how the dates are progressing as far as being on time, or if a task is about to be due.
+ The reason for the colors is to help you not to focus too much on reading just plain dates, but to instruct your subconscious mind that something is about to be due
+ and ready to be completed, hoping that it's something fun!
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+ In the next version of the "Tasks'n Things to Remember Management", a reminder choice of text message, email will be included.
 
-## Contributing
+ Your timezone will automatically set, location reminder will be also included on the net  version.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Screencast Demo
+<http://www.screencast.com/t/NdNZVm7Tll>
 
-## Security Vulnerabilities
+## Special instruction for teaching team (TA)
+To be able to see the tasks for a particular user you must login using these two test users or you can register yourself:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Name: Jill
+Email: jill@harvard.edu
+Password: helloworld
 
-## License
+Name: Jamal
+Email: jamal@harvard.edu
+Password: helloworld
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Once logged in you can view previously added test tasks, you can click on the "Add New Task" button to create new tasks, also click on the buttons to "View", "Edit" tasks.
+
+To delete a particular task, click on the "View Task", the option to delete is on that page.
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+## External Code Source
+* Bootstrap bootstrap.min.css https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
+* jQuery jquery-ui.css.js
+//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css
+* jQuery jquery-1.10.2.js
+//code.jquery.com/jquery-1.10.2.js
+* jQuery jquery-ui.js
+//code.jquery.com/ui/1.11.2/jquery-ui.js
