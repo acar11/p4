@@ -19,23 +19,36 @@ $day_due    = Carbon\Carbon::today()->addDays(0)->setTimezone('America/New_York'
 $todays_date = Carbon\Carbon::now()->setTimezone('America/New_York');
 
 $todays = $todays_date->toFormattedDateString();
+//dd($todays);
 
-if( $tasks[0]->user_id ) {
+//if( $tasks[0]->user_id ) {
+if( isset($task) && isset($tasks) ) {
 
   # Get the timezone for the user.
-  $get_zone = DB::table('users_timezone_log')->select('users_timezone_log.zone')
-            ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
-            ->where('users_timezone_log.user_id', $tasks[0]->user_id)->pluck('zone');
+  //$get_zone = DB::table('users_timezone_log')->select('users_timezone_log.zone')
+  //          ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
+  //          ->where('users_timezone_log.user_id', $tasks[0]->user_id)->pluck('zone');
   //var_dump($get_zone[0]);
 
 }
+
+if( isset($get_zone) ) {
+
+  $got_zone = "Timezone is ".$get_zone[0];
+
+}else{
+
+  $got_zone = "No timezone set";
+
+}
+
 @endphp
 
-<h1>Tasks'n things to remember.</h1>
+<h1>Tasks'n Things to Remember.</h1>
 
 <p class="lead">Hi {{ Auth::user()->name }}, here's a list of all your tasks as today,
   <span class="todays_date"> {{ $todays }}</span>
-  <span class="timezone"> - Timezone is {{ $get_zone[0] }} </span>
+  <span class="timezone"> - {{ $got_zone }} </span>
 </p>
 <p class="tasks_header">
   <span class="green_tasks_sign"> It's new, no worries! </span>
