@@ -31,10 +31,11 @@ class TasksController extends Controller
     //dd($user->id);
     $user = Auth::user();
     //dd($user->id);
+    $sent_user_id = '';
     if($user) {
 
         $tasks = Task::where('user_id', '=', $user->id)->orderBy('id','DESC')->get();
-
+        $sent_user_id = $user->id;
         # Get the IP for the user.
       //  $all_ips = DB::table('users_timezone_log')->select('users_timezone_log.user_ip')
       //            ->join('tasks','tasks.user_id','=','users_timezone_log.user_id')
@@ -73,7 +74,7 @@ class TasksController extends Controller
     // Assuming I alredy have all the logic for the tasks here:
     return view('tasks.index')->with([
         'tasks' => $tasks,
-        'send_user_id' => $user->id,
+        'send_user_id' => $sent_user_id, //$user->id,
         //'my_dates' => $my_dates,
         //'day_f' => 0
     ]);
