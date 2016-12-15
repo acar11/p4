@@ -15,7 +15,9 @@ $day_three  = Carbon\Carbon::today()->addDays(3)->setTimezone('America/New_York'
 $day_two    = Carbon\Carbon::today()->addDays(2)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
 $day_one    = Carbon\Carbon::today()->addDays(1)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
 $day_due    = Carbon\Carbon::today()->addDays(0)->setTimezone('America/New_York')->format('Y-m-d 00:00:00');
+//var_dump($day_one);
 //var_dump($day_due);
+
 $todays_date = Carbon\Carbon::now()->setTimezone('America/New_York');
 
 $todays = $todays_date->toFormattedDateString();
@@ -81,7 +83,7 @@ if($task->date_me){
   $format_date = $year.'-'.$month.'-'.$day;
   $my_due_date = Carbon\Carbon::parse($format_date);
 
-  //var_dump($day_due.' = '. $my_due_date);
+  //var_dump($day_two.' = '. $my_due_date);
 
 }else{
 
