@@ -2,11 +2,11 @@
 
 @section('content')
 
-<h1>{{ $task->title }}</h1>
+@if(Auth::check())
+
+<h1> {{ $task->title }} </h1>
 <p class="lead">{{ $task->description }}</p>
 <hr>
-
-@if(Auth::check())
 
 <div class="row">
     <div class="col-md-6">

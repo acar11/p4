@@ -2,7 +2,9 @@
 
 @section('content')
 
-<h1>Editing "{{ $task->title }}"</h1>
+@if(Auth::check())
+
+<h1> {{ $task->title }} </h1>
 <p class="lead">Edit and save this task below, or <a href="{{ route('tasks.index') }}">go back to all your tasks.</a></p>
 <hr>
 
@@ -42,4 +44,13 @@
     format: 'mm-dd-yyyy'
   });
 </script>
+
+@endif
+
+@if(Auth::guest())
+ <a href="/login" class="btn btn-info">
+    You need to login to see this page!<br><br>
+</a>
+@endif
+
 @stop
