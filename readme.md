@@ -21,7 +21,7 @@
  Your timezone will automatically be set, location reminder will be also included on the next  version.
 
 ## Screencast Demo
-<http://www.screencast.com/t/NdNZVm7Tll>
+<http://www.screencast.com/t/om6e1LMfdwn7>
 
 ## Special instruction for teaching team (TA)
 To be able to see the tasks for a particular user you must login using these two test users or you can register yourself:
